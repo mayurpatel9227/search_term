@@ -1,0 +1,139 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <style>
+        body {
+            background: #288dfa;
+            position: relative;
+            height: 100vh;
+        }
+        table td{
+             border : 2px solid black;
+             border-spacing: 1em 0;
+        }
+        td {
+          width: 100px;
+          text-align: center;
+          border: 1px solid black;
+          padding: 5px;
+        }
+        
+        .form--user__icon span{
+            font-size: 32px;
+            position: absolute !important;
+            top: 50% !important;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .container {
+                width: 60%;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    color: #000000;
+    content: '';
+    padding: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+        }
+        
+        .form--user__icon {
+                  border-radius: 50%;
+    height: 100px;
+    z-index: 9;
+    top: -50px;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
+    background: #ea7a1a;
+    width: 100px;
+    color: #fff;
+        }
+        
+        button {
+
+     width: 100%;
+     color:#fff !important;
+    border-radius: 50px !important;
+    border: 0 !important;
+    background: #003296 !important;
+        }
+        
+        .container h4 {
+            margin-top: 32px;
+        }
+        form a{
+        color:#fff !important;
+        text-decoration:underline !important;
+        }
+    </style>
+
+    <div class="container">
+        
+        <h4 class="text-center">Users list</h4>
+        <p id="notice"><%= notice %></p>
+
+        <%= form_tag('search', :method=> "get") do%>
+        <div class="input-group">
+          <%= search_field_tag :search, params[:search], placeholder: "type", class: "form-control"%>
+          <div class="input-group-btn">
+            <%= button_tag "search", :class => 'btn btn-info glyphicon glyphicon-search', :name => nil%>
+          </div>
+        </div>
+        <%end%>
+
+        <h1>Users</h1>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Web url</th>
+              <th>Friends count</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.name %></td>
+
+                <td><a href=><%= user.web_url %></a></td>
+                <td><%= user.friends_count %></td>
+                <% if user.requested_friends.where(id:session[:user_id]).present? or user.ouer_friends.where(id:session[:user_id]).present? %>
+                    <td><p class="not-visible"><%= link_to 'Add Friends', add_friends_url(friend_id: user.id), method: :post %></p></td>
+                  
+                  <% else %>
+                    <td><%= link_to 'Add Friends', add_friends_url(friend_id: user.id), method: :post %></td>
+                  <% end %>
+                
+                  <% if user.requested_friends.where(id:session[:user_id]).present? or user.ouer_friends.where(id:session[:user_id]).present? %>
+                    <td><%= link_to 'Remove Friends', remove_friends_url(friend_id: user.id), method: :post %></td>
+                  
+                  <% else %>
+                    <td><p class="not-visible"><%= link_to 'Remove Friends', remove_friends_url(friend_id: user.id), method: :post %></p></td>
+                  <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+
+    </div>
+
+</body>
+
+</html>

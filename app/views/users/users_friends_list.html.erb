@@ -1,0 +1,131 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <style>
+        body {
+            background: #288dfa;
+            position: relative;
+            height: 100vh;
+        }
+
+        table td{
+             border : 2px solid black;
+             border-spacing: 1em 0;
+        }
+        td {
+          width: 100px;
+          text-align: center;
+          border: 1px solid black;
+          padding: 5px;
+        }
+        th {
+          width: 100px;
+          text-align: center;
+          border: 1px solid black;
+          padding: 2px;
+        }
+        
+        .form--user__icon span{
+            font-size: 32px;
+            position: absolute !important;
+            top: 50% !important;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .container {
+                width: 60%;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    color: 000000;
+    content: '';
+    padding: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+        }
+        
+        
+        .form--user__icon {
+                  border-radius: 50%;
+    height: 100px;
+    z-index: 9;
+    top: -50px;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
+    background: #ea7a1a;
+    width: 100px;
+    color: #fff;
+        }
+        
+        button {
+
+     width: 100%;
+     color:#fff !important;
+    border-radius: 50px !important;
+    border: 0 !important;
+    background: #003296 !important;
+        }
+        
+        .container h4 {
+            margin-top: 32px;
+        }
+        form a{
+        color:#000000;
+        text-decoration:underline !important;
+        }
+    </style>
+
+    <div class="container">
+        <h4 class="text-center">Friends list</h4>
+        <%= link_to 'Back', "/users/#{session[:user_id]}" %>
+        <% flash.each do |type, msg| %>
+          <div>
+            <%= msg %>
+          </div>
+        <% end %>
+        <p>
+          <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Web url</th>
+              <th>Description</th>
+              <th>Title</th>
+              <th>Friends Count</th>
+              
+              <th calspan="4"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @friend_name.each do |user| %>
+              <tr>
+                <td><%= user.name %></td>
+                <td><a href=><%= user.web_url %></a></td>
+                <td><%= user.description %></td>
+                <td><%= user.title %></td>
+                <td><%= user.friends_count %></td>
+                <td><%= link_to 'Remove Friends', remove_friends_url(friend_id: user.id), method: :post %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        </p>
+    </div>
+
+</body>
+
+</html>

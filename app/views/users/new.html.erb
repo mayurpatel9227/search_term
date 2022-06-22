@@ -1,0 +1,152 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <style>
+        body {
+            background: #288dfa;
+            position: relative;
+            height: 100vh;
+        }
+        
+        .form--user__icon span{
+            font-size: 32px;
+            position: absolute !important;
+            top: 50% !important;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+          }
+
+          .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+          }
+        @media screen and (max-width: 600px) {
+          .col-25, .col-75, input[type=submit] {
+            width: 100%;
+            margin-top: 0;
+          }
+        }
+        .container {
+                width: 60%;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    color: #000000;
+    content: '';
+    padding: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+        }
+        
+        
+        .form--user__icon {
+                  border-radius: 50%;
+    height: 100px;
+    z-index: 9;
+    top: -50px;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
+    background: #ea7a1a;
+    width: 100px;
+    color: #fff;
+        }
+        
+        button {
+
+     width: 100%;
+     color:#fff !important;
+    border-radius: 50px !important;
+    border: 0 !important;
+    background: #003296 !important;
+        }
+        
+        .container h4 {
+            margin-top: 32px;
+        }
+        form a{
+        color:#fff !important;
+        text-decoration:underline !important;
+        }
+    </style>
+
+    <div class="container">
+        <h4 class="text-center">Registration</h4>
+        <%= form_with(model: @user) do |form| %>
+          <% if @user.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+              <ul>
+                <% @user.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+
+          <div class="col-25">
+            <%= form.label :name %></div>
+            <div class="col-75"><%= form.text_field :name %>
+          </div>
+
+          <div class="col-25">
+            <%= form.label :email %></div>
+            <div class="col-75">
+            <%= form.text_field :email %>
+          </div>
+
+          <div class="col-25">
+            <%= form.label :password %></div>
+            <div class="col-75">
+            <%= form.text_field :password %>
+          </div>
+
+          <div class="col-25">
+            <%= form.label :web_url %></div>
+            <div class="col-75">
+            <%= form.text_field :web_url %>
+          </div>
+
+          <div class="col-25">
+            <%= form.label :title %></div>
+            <div class="col-75">
+            <%= form.text_field :title %>
+          </div>
+
+          <div class="col-25">
+            <%= form.label :description %></div>
+            <div class="col-75">
+            <%= form.text_area :description %>
+          </div>
+
+          <br>
+
+          <div class="actions">
+            <%= form.submit %>
+          </div>
+        <% end %>
+    </div>
+
+</body>
+
+</html>
